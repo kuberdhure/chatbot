@@ -17,6 +17,15 @@ class MessageParser {
     else if(lowercase.includes("food")){
       this.actionProvider.food();
     }
+    else if(lowercase.includes("cloth")){
+      this.actionProvider.cloth();
+    }
+    else if(lowercase.includes("shelter")){
+      this.actionProvider.shelter();
+    }
+    else if(lowercase.includes("medical")){
+      this.actionProvider.medical();
+    }
     else{
       this.actionProvider.invalidInput();
     }
