@@ -11,6 +11,7 @@ function App() {
         <Chatbot 
           className="Chat"
           config={config} 
+          headerText="Helper Bot"
           messageParser={MessageParser}
           actionProvider={ActionProvider}
           />
