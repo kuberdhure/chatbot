@@ -1,5 +1,9 @@
 import GeoLocation from "../Component/GeoLocation";
+import config from "./config";
 
+/**
+ * @type {"" |"state" | "city" | "pincode" | "location"}
+ */
 var userLocationStatus = "";
 
 class ActionProvider {
@@ -9,6 +13,14 @@ class ActionProvider {
 
     }
 
+    initialMessage = () => {
+        this.addMessageToState(config.initialMessages[1])
+    } 
+
+    volunteerTime = () => {
+        const message = this.createChatBotMessage("A volunteer will be with you in 15-30 minutes")
+        this.addMessageToState(message)
+    }
 
     sayTime = () => {
         var d = new Date();
@@ -19,30 +31,37 @@ class ActionProvider {
     }
 
     greet = () => {
-        const message = this.createChatBotMessage("Hello friend :)");
+        const message = this.createChatBotMessage("Hey there :)");
         this.addMessageToState(message)
     }
 
     welcome = () => {
 
-        const message = this.createChatBotMessage("i'm glad i could help you! :) ")
+        const message = this.createChatBotMessage("I'm glad i could help you! :) ")
         this.addMessageToState(message)
+    }
+
+
+    needs = (need) => {
+        const message = this.createChatBotMessage("You need " + need)
+        this.addMessageToState(message)
+        this.location()
     }
 
     food = () => {
-
-        const message = this.createChatBotMessage("Okay we understand you need food ")
+        const message = this.createChatBotMessage("Okay we understand you need food")
         this.addMessageToState(message)
         this.location()
-
     }
+
     shelter = () => {
         const message = this.createChatBotMessage("Okay we understand you need shelter")
         this.addMessageToState(message)
         this.location()
     }
-    cloth = () => {
-        const message = this.createChatBotMessage("Okay we understand you need cloth")
+
+    clothes = () => {
+        const message = this.createChatBotMessage("Okay we understand you need clothes")
         this.addMessageToState(message)
         this.location()
     }
@@ -66,6 +85,7 @@ class ActionProvider {
     userLocation = () => {
 
         GeoLocation();
+        this.volunteerTime();
 
     }
 
@@ -91,14 +111,14 @@ class ActionProvider {
     otherPincode = () => {
 
         // userLocationStatus = "pincode";
-        const message = this.createChatBotMessage("Enter Pincode :  ")
+        const message = this.createChatBotMessage("Enter Pincode:  ")
         this.addMessageToState(message)
         console.log(userLocationStatus);
 
     }
 
     locationConfirmation = () => {
-        const message = this.createChatBotMessage("Did you entered your choice correctly ? ", {
+        const message = this.createChatBotMessage("Did you enter your answer correctly? ", {
             widget: "Confirmation"
         })
 
@@ -117,8 +137,11 @@ class ActionProvider {
             this.otherPincode()
         }
         else if (userLocationStatus === "pincode") {
-            userLocationStatus = "";
+            userLocationStatus = "location";
             this.otherLocation()
+        } 
+        else if (userLocationStatus === "location") {
+            userLocationStatus = "";
         }
     }
 
@@ -133,17 +156,20 @@ class ActionProvider {
         else if (userLocationStatus === "pincode") {
             this.otherPincode()
         }
+        else if (userLocationStatus === "location") {
+        }
     }
 
     otherLocation = () =>{
-        const message = this.createChatBotMessage("Enter the complete location or Google Maps link (this will be sent to the volunteer) ")
+        const message = this.createChatBotMessage("Enter your precise location (this will be sent to the volunteer) ")
+        console.log(userLocationStatus)
         this.addMessageToState(message)
     }
 
 
 
     invalidInput = () => {
-        const message = this.createChatBotMessage("Sorry I didn't understood :(  I can help you with following things", {
+        const message = this.createChatBotMessage("Sorry, I didn't understand :(  I can help you with following things", {
             widget: "Options"
         })
 

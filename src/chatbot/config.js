@@ -8,7 +8,7 @@ const config = {
   botName: "Andy",
   initialMessages: [
           createChatBotMessage(`Hey , I am Andy your virtual assistant!`),
-          createChatBotMessage(`How may I help today? here are few things i can help with`,
+          createChatBotMessage(`How may I help today? here are a few things i can help you with`,
           {
             widget:"Options"
           }

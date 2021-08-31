@@ -7,8 +7,8 @@ const Choice = (props) => {
         {
             id: 1,
             text: "Yourself",
-            handler: props.actionProvider.userLocation
-
+            handler: props.actionProvider.userLocation,
+            
         },
         {
             id: 2,

@@ -2,10 +2,12 @@
   "name": "ai_chatbox",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-chatbot-kit": "^1.1.20",
     "react-dom": "^17.0.2",
@@ -16,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "train": "node --experimental-modules src/ai/train.js"
   },
   "eslintConfig": {
     "extends": [

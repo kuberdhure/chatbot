@@ -8,8 +8,8 @@ const Options = (props) => {
             id: 1,
         },
         {
-            text: "Cloth",
-            handler: props.actionProvider.cloth,
+            text: "Clothes",
+            handler: props.actionProvider.clothes,
             id: 2,
         },
         {

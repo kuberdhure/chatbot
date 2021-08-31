@@ -1,0 +1,96 @@
+{
+  "language": "en",
+  "intents": [
+    {
+      "name": "need-help",
+      "contexts": ["in_need"],
+      "utterances": [
+        "help",
+        "need help",
+        "i need help",
+        "i need [food](help_type)",
+        "i need [clothes](help_type)",
+        "i need [shelter](help_type)",
+        "i need [medical](help_type)",
+        "i need help with [food](help_type)",
+        "i need help with [clothes](help_type)",
+        "i need help with [shelter](help_type)",
+        "i need help with [medical](help_type)",
+        "[food](help-type)",
+        "[clothes](help-type)",
+        "[shelter](help-type)",
+        "[medical](help-type)"
+      ],
+      "slots": [
+        {
+          "name": "help",
+          "entities": ["help_type"]
+        }
+      ]
+    },
+    {
+      "name": "hello",
+      "contexts": ["global", "in_need"],
+      "slots": [],
+      "utterances": [
+        "good day!",
+        "good morning",
+        "holla",
+        "bonjour",
+        "hey there",
+        "hi bot",
+        "hey bot",
+        "hey robot",
+        "hey!",
+        "hi",
+        "hello"
+      ]
+    },
+
+    {
+      "name": "thank-you",
+      "contexts": [
+        "global",
+        "in_need"
+      ],
+      "slots": [],
+      "utterances": [
+        "thanks!",
+        "thank you",
+        "thank you so much",
+        "thank you very much!",
+        "thanks a lot",
+        "you were a lot of help",
+        "thank you for helping",
+        "thanks for helping!"
+      ]
+    },
+
+    {
+      "name": "time",
+      "contexts": ["in_need"],
+      "utterances": [
+        "how long will it take for the volunteer to reach?",
+        "where is the volunteer?",
+        "how much longer?",
+        "what time will the volunteer reach?"
+      ],
+      "slots": []
+    }
+  ],
+  "contexts": ["in_need", "global"],
+  "entities": [
+    {
+      "name": "help_type",
+      "type": "list",
+      "fuzzy": 0.9,
+      "values": [
+        { "name": "food", "synonyms": ["food"] },
+        { "name": "clothes", "synonyms": ["clothes"] },
+        { "name": "shelter", "synonyms": ["shelter"] },
+        { "name": "medical", "synonyms": ["medical"] }
+      ]
+    }
+  ],
+  "seed": 42
+}
