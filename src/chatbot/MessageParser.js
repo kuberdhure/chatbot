@@ -1,5 +1,5 @@
 import { userLocationStatus } from "./ActionProvider";
-import * as nlu from "../ai/nlu";
+import axios from "axios";
 
 class MessageParser {
   constructor(actionProvider, state) {
@@ -12,9 +12,10 @@ class MessageParser {
 
     const lowerMsg = message.toLowerCase();
 
-    nlu
-      .predict("bb53a74fd26e1563.46a8c78ff3b996ce.42.en", [lowerMsg])
-      .then((predictions) => {
+    axios.post("http://localhost:3001/nlu/predict", {"utterances": [lowerMsg]})
+      .then((res) => {
+        console.log(res);
+        const predictions = res.data["predictions"];
         var intents = predictions[0].contexts[0].intents;
         intents.sort((a, b) => (a.confidence < b.confidence ? 1 : -1));
 
