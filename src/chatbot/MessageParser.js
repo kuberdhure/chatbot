@@ -1,5 +1,4 @@
-import { userLocationStatus } from "./ActionProvider";
-import axios from "axios";
+import { userLocationStatus, chatbotData } from "./ActionProvider";
 
 class MessageParser {
   constructor(actionProvider, state) {
@@ -11,17 +10,15 @@ class MessageParser {
     console.log(userLocationStatus);
 
     const lowerMsg = message.toLowerCase();
+    this.actionProvider.chatLog(lowerMsg);
 
-    axios.post("http://localhost:3001/nlu/predict", {"utterances": [lowerMsg]})
+    chatbotData.post("/chatbot/nlu", {"utterances": [lowerMsg]})
       .then((res) => {
-        console.log(res);
         const predictions = res.data["predictions"];
         var intents = predictions[0].contexts[0].intents;
         intents.sort((a, b) => (a.confidence < b.confidence ? 1 : -1));
 
         var entities = predictions[0].entities[0];
-
-        console.log(intents[0].confidence);
 
         if (userLocationStatus === "") {
           if (intents[0].confidence <= 0.02) {

@@ -7,7 +7,11 @@ import axios from "axios";
  */
 var userLocationStatus = "";
 var scpa;
-var typeOfHelp;
+var typeOfHelp = null;
+var message = {
+  id:101,
+  message : "How may I help today? here are a few things i can help you with"
+};
 const data = {
   typeOfHelp: "",
   state: "",
@@ -18,6 +22,12 @@ const data = {
   longitude: null,
   isOther: true,
 };
+const chatlog = {
+  userId: 0,
+  chatbotResponse: "",
+  msgText: ""
+}
+const chatbotData = axios.create({ baseURL: "http://localhost:3001"});
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
@@ -25,12 +35,23 @@ class ActionProvider {
     this.setState = setStateFunc;
   }
 
+  chatLog = (msgText) => {
+    chatlog.userId = 102;
+    chatlog.msgText = msgText;
+    chatlog.chatbotResponse = message.message;
+    console.log(chatlog);
+    chatbotData.post("/chatbot/chatlog",chatlog).then((res) => {
+        // console.log(res);
+      });
+  };
+
+
   initialMessage = () => {
     this.addMessageToState(config.initialMessages[1]);
   };
 
   volunteerTime = () => {
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "A volunteer will be with you in 15-30 minutes"
     );
     this.addMessageToState(message);
@@ -40,44 +61,47 @@ class ActionProvider {
     var d = new Date();
     var T = d.toLocaleTimeString();
 
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "The current ist time is " + T.toString()
     );
     this.addMessageToState(message);
   };
 
   greet = () => {
-    const message = this.createChatBotMessage("Hey there :)");
+    message = this.createChatBotMessage("Hey there :)");
     this.addMessageToState(message);
   };
 
   welcome = () => {
-    const message = this.createChatBotMessage("I'm glad i could help you! :) ");
+    message = this.createChatBotMessage("I'm glad i could help you! :) ");
     this.addMessageToState(message);
   };
 
   needs = (need) => {
     data.typeOfHelp = need;
     typeOfHelp = need;
-    const message = this.createChatBotMessage("You need " + need);
+    message = this.createChatBotMessage("You need " + need);
     this.addMessageToState(message);
     this.location();
   };
 
   food = () => {
+    this.chatLog("food");
     data.typeOfHelp = "food";
     typeOfHelp = "food";
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Okay we understand you need food"
     );
+
     this.addMessageToState(message);
     this.location();
   };
 
   shelter = () => {
+    this.chatLog("shelter");
     data.typeOfHelp = "shelter";
     typeOfHelp = "shelter";
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Okay we understand you need shelter"
     );
     this.addMessageToState(message);
@@ -85,9 +109,10 @@ class ActionProvider {
   };
 
   clothes = () => {
+    this.chatLog("clothes");
     data.typeOfHelp = "clothes";
     typeOfHelp = "clothes";
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Okay we understand you need clothes"
     );
     this.addMessageToState(message);
@@ -95,9 +120,10 @@ class ActionProvider {
   };
 
   medical = () => {
+    this.chatLog("medical");
     data.typeOfHelp = "medical";
     typeOfHelp = "medical";
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Okay we understand you need medical help "
     );
     this.addMessageToState(message);
@@ -105,7 +131,7 @@ class ActionProvider {
   };
 
   location = () => {
-    const message = this.createChatBotMessage("Whom this help is for?", {
+    message = this.createChatBotMessage("Whom this help is for?", {
       widget: "Choice",
     });
 
@@ -113,33 +139,33 @@ class ActionProvider {
   };
 
   userLocation = () => {
+    this.chatLog("Yourself");
     GeoLocation();
     this.volunteerTime()
   };
 
   otherState = () => {
+    this.chatLog("other");
     userLocationStatus = "state";
-    const message = this.createChatBotMessage("Enter State Name:  ");
+    message = this.createChatBotMessage("Enter State Name:  ");
     this.addMessageToState(message);
     console.log(userLocationStatus);
   };
 
   otherCity = () => {
-    // userLocationStatus = "city";
-    const message = this.createChatBotMessage("Enter City Name:  ");
+    message = this.createChatBotMessage("Enter City Name:  ");
     this.addMessageToState(message);
     console.log(userLocationStatus);
   };
 
   otherPincode = () => {
-    // userLocationStatus = "pincode";
-    const message = this.createChatBotMessage("Enter Pincode:  ");
+    message = this.createChatBotMessage("Enter Pincode:  ");
     this.addMessageToState(message);
     console.log(userLocationStatus);
   };
 
   locationConfirmation = (lowerMsg) => {
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Did you enter your answer correctly? ",
       {
         widget: "Confirmation",
@@ -150,29 +176,38 @@ class ActionProvider {
   };
 
   Yes = () => {
+    this.chatLog("Yes");
     if (userLocationStatus === "state") {
       data.state = scpa;
       userLocationStatus = "city";
       this.otherCity();
-    } else if (userLocationStatus === "city") {
+    }
+
+    else if (userLocationStatus === "city") {
       data.city = scpa;
       userLocationStatus = "pincode";
       this.otherPincode();
-    } else if (userLocationStatus === "pincode") {
+    }
+
+    else if (userLocationStatus === "pincode") {
       data.pincode = scpa;
       userLocationStatus = "address";
       this.otherLocation();
-    } else if (userLocationStatus === "address") {
+    }
+
+    else if (userLocationStatus === "address") {
       data.address = scpa;
       userLocationStatus = "";
-      axios.post("http://localhost:3001/userData", data).then((res) => {
-        console.log("Posting Data to backend!");
+      chatbotData.post("/chatbot/distressed", data).then((res) => {
+        // console.log(res);
       });
+
       this.volunteerTime();
     }
   };
 
   No = () => {
+    this.chatLog("No");
     if (userLocationStatus === "state") {
       this.otherState();
     } else if (userLocationStatus === "city") {
@@ -180,12 +215,12 @@ class ActionProvider {
     } else if (userLocationStatus === "pincode") {
       this.otherPincode();
     } else if (userLocationStatus === "address") {
-      this.otherPincode();
+      this.otherLocation();
     }
   };
 
   otherLocation = () => {
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Enter your precise location (this will be sent to the volunteer) "
     );
     console.log(userLocationStatus);
@@ -193,13 +228,13 @@ class ActionProvider {
   };
 
   otherPhoneNumber = () => {
-    const message = this.createChatBotMessage("Pls enter your phone number");
+    message = this.createChatBotMessage("Pls enter your phone number");
     this.addMessageToState(message);
   };
 
 
   invalidInput = () => {
-    const message = this.createChatBotMessage(
+    message = this.createChatBotMessage(
       "Sorry, I didn't understand :(  I can help you with following things",
       {
         widget: "Options",
@@ -217,5 +252,7 @@ class ActionProvider {
   };
 }
 
-export { userLocationStatus, typeOfHelp };
+
+
+export { userLocationStatus, typeOfHelp, chatbotData };
 export default ActionProvider;

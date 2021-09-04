@@ -1,11 +1,9 @@
 import axios from "axios";
-import { typeOfHelp } from "../chatbot/ActionProvider";
-
+import { typeOfHelp, chatbotData } from "../chatbot/ActionProvider";
 
 var api;
 
 function getLocation() {
-  console.log("getLocation Called");
   api = "http://nominatim.openstreetmap.org/reverse?format=json";
 
   navigator.geolocation.getCurrentPosition(
@@ -15,8 +13,7 @@ function getLocation() {
         "&lat=" +
         position.coords.latitude +
         "&lon=" +
-        position.coords.longitude +
-        "&zoom=18&addressdetails=1";
+        position.coords.longitude;
       getApi();
     },
     (err) => {
@@ -33,8 +30,6 @@ function getLocation() {
 const getApi = async () => {
   const location = await axios.get(api);
   const locationData = location.data;
-  console.log(locationData);
-  // var d = new Date();
   const data = {
     typeOfHelp: typeOfHelp ,
     state: locationData.address.state,
@@ -45,10 +40,7 @@ const getApi = async () => {
     longitude: locationData.lon,
     isOther: false
   };
-  // console.log(data);
-  axios.post("http://localhost:3001/abc",data).then((res)=>{
-    console.log("Yoooooooooo")
-  })
+  chatbotData.post("/chatbot/distressed",data)
 };
 
 export default getLocation;
