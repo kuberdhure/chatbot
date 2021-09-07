@@ -27,15 +27,9 @@
 }
 
 .option-button:disabled {
-  padding: 10px;
-  margin: 5px;
-  text-align: center;
   pointer-events: none;
   cursor: default;
-  outline: none;
   color: black;
   background-color: #bbbbbb;
-  border: 2 px solid rgb(0, 0, 7);
-  border-radius: 15px;
 }
 
