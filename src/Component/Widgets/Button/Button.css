@@ -1,0 +1,41 @@
+.options-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.option-button {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: rgb(8, 72, 189);
+  background-color: #f6f8ff;
+  border: 2 px solid rgb(0, 0, 7);
+  border-radius: 15px;
+  box-shadow: 0 4px rgb(128, 134, 143);
+}
+
+.option-button:hover {
+  background-color: #9ff3f3;
+  color: black;
+}
+
+.option-button:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+}
+
+.option-button:disabled {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  pointer-events: none;
+  cursor: default;
+  outline: none;
+  color: black;
+  background-color: #bbbbbb;
+  border: 2 px solid rgb(0, 0, 7);
+  border-radius: 15px;
+}
+

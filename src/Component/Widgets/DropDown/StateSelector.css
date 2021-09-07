@@ -1,0 +1,28 @@
+.state-selector-container {
+  background-color: white;
+  color: #2898ec; ;
+  padding-bottom: 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.state-selector-heading {
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+}
+
+.state-button-confirm {
+  display: block;
+  margin: 12px auto;
+  background-color: #2898ec;;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  width: 130px;
+  border: none;
+}
+
+
+
+

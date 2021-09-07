@@ -1,8 +1,10 @@
 import { createChatBotMessage } from "react-chatbot-kit";
 import React from "react";
-import Options from "../Component/Options"; 
-import Choice from "../Component/Choice";
-import Confirmation from "../Component/Confirmation";
+import Choice from "../Component/Widgets/Button/Choice";
+import Confirmation from "../Component/Widgets/Button/Confirmation";
+import Options from "../Component/Widgets/Button/Options";
+import StateSelector from "../Component/Widgets/DropDown/StateSelector";
+
 
 const config = {
   botName: "Andy",
@@ -14,19 +16,34 @@ const config = {
           }
           )
   ],
+  state: {
+    // stateNames: [],
+    selectedState: {abbreviation:"", name: ""},
+    optionSelector: {id: 0, text: ""},
+    confirmationSelector: {id: 0, text: ""},
+    userSelector: {id: 0, text: ""}
+  },
   widgets: [
+    {
+      widgetName: "StateSelector",
+      widgetFunc: (props) => <StateSelector {...props} />,
+      mapStateToProps: ["messages", "selectedState"],
+    },
     {
       widgetName:"Options",
       widgetFunc: (props) => <Options {...props}/>,
+      mapStateToProps: ["messages", "optionSelector"],
     },
     {
       widgetName: "Choice",
       widgetFunc: (props) => <Choice {...props}/>,
-
+      mapStateToProps: ["messages", "userSelector"],
+      
     },
     {
       widgetName: "Confirmation",
       widgetFunc: (props) => <Confirmation {...props}/>,
+      mapStateToProps: ["messages", "confirmationSelector"],
     }
 
   ]

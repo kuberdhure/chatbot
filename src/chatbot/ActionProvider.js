@@ -85,50 +85,6 @@ class ActionProvider {
     this.location();
   };
 
-  food = () => {
-    this.chatLog("food");
-    data.typeOfHelp = "food";
-    typeOfHelp = "food";
-    message = this.createChatBotMessage(
-      "Okay we understand you need food"
-    );
-
-    this.addMessageToState(message);
-    this.location();
-  };
-
-  shelter = () => {
-    this.chatLog("shelter");
-    data.typeOfHelp = "shelter";
-    typeOfHelp = "shelter";
-    message = this.createChatBotMessage(
-      "Okay we understand you need shelter"
-    );
-    this.addMessageToState(message);
-    this.location();
-  };
-
-  clothes = () => {
-    this.chatLog("clothes");
-    data.typeOfHelp = "clothes";
-    typeOfHelp = "clothes";
-    message = this.createChatBotMessage(
-      "Okay we understand you need clothes"
-    );
-    this.addMessageToState(message);
-    this.location();
-  };
-
-  medical = () => {
-    this.chatLog("medical");
-    data.typeOfHelp = "medical";
-    typeOfHelp = "medical";
-    message = this.createChatBotMessage(
-      "Okay we understand you need medical help "
-    );
-    this.addMessageToState(message);
-    this.location();
-  };
 
   location = () => {
     message = this.createChatBotMessage("Whom this help is for?", {
@@ -147,7 +103,9 @@ class ActionProvider {
   otherState = () => {
     this.chatLog("other");
     userLocationStatus = "state";
-    message = this.createChatBotMessage("Enter State Name:  ");
+    message = this.createChatBotMessage("Enter State Name:  ", {
+      widget: "StateSelector"
+    });
     this.addMessageToState(message);
     console.log(userLocationStatus);
   };
