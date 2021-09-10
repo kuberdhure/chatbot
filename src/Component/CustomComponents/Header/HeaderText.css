@@ -1,0 +1,49 @@
+.menu-holder {
+overflow-x: hidden;
+}
+.menu {
+  right: -90%;
+  border-bottom-left-radius: 25px;
+  position: absolute;
+  color: #005c9c;
+  z-index: 5000;
+  background: rgba(250, 250, 250, 0.87);
+  height: 40%;
+  width: 80%;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 300ms right cubic-bezier(0.77, 0, 0.175, 1);
+}
+.menu.active {
+  right: 0;
+}
+
+.menu-button {
+  position: absolute;
+  right: 10%;
+  padding: 2%;
+  margin: 5px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: rgb(8, 72, 189);
+  background-color: #f6f8ff;
+  border-radius: 10px;
+  border-color: #ffffff;
+}
+
+.option-menu-button {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: rgb(8, 72, 189);
+  background-color: #f6f8ff;
+  border: 2 px solid rgb(0, 0, 7);
+  border-radius: 15px;
+  box-shadow: 0 4px rgb(128, 134, 143);
+  display: flex;
+}

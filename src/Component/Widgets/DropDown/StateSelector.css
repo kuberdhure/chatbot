@@ -1,5 +1,5 @@
 .state-selector-container {
-  background-color: white;
+  /* background-color: white; */
   color: #2898ec; ;
   padding-bottom: 10px;
   border-radius: 15px;
@@ -22,7 +22,3 @@
   width: 130px;
   border: none;
 }
-
-
-
-
