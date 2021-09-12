@@ -20,6 +20,14 @@ const data = {
 };
 
 class ActionProvider {
+  // TODO
+  /*
+  static userID;
+
+  static setUserId (_userID) { ActionProvider.userID = _userID };
+  static getUserId () { return ActionProvider.userID };
+  */
+
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
