@@ -12,13 +12,25 @@ class MessageParser {
     const lowerMsg = message.toLowerCase();
     this.actionProvider.chatLog(lowerMsg);
 
-    chatbotData.post("/chatbot/nlu", {"utterances": [lowerMsg]})
+    chatbotData.post("/data/nlu", {"utterances": [lowerMsg]})
       .then((res) => {
         const predictions = res.data["predictions"];
         var intents = predictions[0].contexts[0].intents;
         intents.sort((a, b) => (a.confidence < b.confidence ? 1 : -1));
 
         var entities = predictions[0].entities[0];
+
+        // var need;
+
+        // if(predictions[0].entities[0].value == "food"){
+        //   need = 1;
+        // }else if(predictions[0].entities[0].value == "clothes"){
+        //   need = 2;
+        // }else if(predictions[0].entities[0].value == "shelter"){
+        //   need = 3;
+        // }else if(predictions[0].entities[0].value == "medical"){
+        //   need = 4;
+        // }
 
         if (userLocationStatus === "") {
           if (intents[0].confidence <= 0.02) {

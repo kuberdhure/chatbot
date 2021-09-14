@@ -31,16 +31,22 @@ const getApi = async () => {
   const location = await axios.get(api);
   const locationData = location.data;
   const data = {
-    typeOfHelp: typeOfHelp ,
-    state: locationData.address.state,
-    city: locationData.address.city,
-    pincode: locationData.address.postcode,
-    address: locationData.display_name,
-    latitude: locationData.lat,
-    longitude: locationData.lon,
-    isOther: false
+    UserId:1,
+    Name:"Vinay",
+    PhoneNumber:9979583723,
+    Age:21,
+    HelpTypeId: 1,
+    // state: locationData.address.state,
+    // city: locationData.address.city,
+    // pincode: locationData.address.postcode,
+    Address: locationData.display_name,
+    Lat:  parseFloat(locationData.lat) ,
+    Lng:  parseFloat(locationData.lon),
+    // isOther: false
+    
   };
-  chatbotData.post("/chatbot/distressed",data)
+  console.log(data);
+  chatbotData.post("/data/caseData",data)
 };
 
 export default getLocation;

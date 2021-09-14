@@ -4,7 +4,7 @@ import Choice from "../Component/Widgets/Button/Choice";
 import Confirmation from "../Component/Widgets/Button/Confirmation";
 import Options from "../Component/Widgets/Button/Options";
 import StateSelector from "../Component/Widgets/DropDown/StateSelector";
-import MenuButton from "../Component/CustomComponents/Header/HeaderText";
+
 
 const config = {
   botName: "Andy",
@@ -23,9 +23,7 @@ const config = {
     confirmationSelector: { id: 0, text: "" },
     userSelector: { id: 0, text: "" },
   },
-  customComponents: {
-    header: MenuButton,
-  },
+
   widgets: [
     {
       widgetName: "StateSelector",

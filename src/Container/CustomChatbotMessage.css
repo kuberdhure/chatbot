@@ -45,8 +45,7 @@
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #2898ec;
-  position: absolute;
+    position: absolute;
   left: -7px;
   top: 13px;
 }

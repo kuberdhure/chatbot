@@ -1,8 +1,19 @@
 .App {
     text-align: center;
-    background: linear-gradient(to right, #FC466B, #3F5EFB);    
-    min-height: 100vh;
+    background-color: rgb(43, 41, 41);
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+
 }
+
+.ion-page {
+    display:block;
+}
+
+#root {
+    height: 90%;
+}
+
+

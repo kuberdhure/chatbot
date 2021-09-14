@@ -3,33 +3,36 @@
   flex-wrap: wrap;
 }
 
+
 .option-button {
-  padding: 10px;
-  margin: 5px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: rgb(8, 72, 189);
-  background-color: #f6f8ff;
-  border: 2 px solid rgb(0, 0, 7);
-  border-radius: 15px;
-  box-shadow: 0 4px rgb(128, 134, 143);
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    font-weight: 600;
+    color: #ed576b;
+    background-color: rgba(246,248,255,.725);
+    border-radius: 15px;
+    box-shadow: 0 4px #80868f;
 }
 
 .option-button:hover {
-  background-color: #9ff3f3;
-  color: black;
+  background-color: #ed576b;
+  color: #fff;
 }
 
 .option-button:active {
-  box-shadow: 0 5px #666;
+  box-shadow: 0 4px #80868f;
   transform: translateY(2px);
 }
 
 .option-button:disabled {
   pointer-events: none;
+  font-weight: bold;
   cursor: default;
-  color: black;
+  color: #514f4f;
   background-color: #bbbbbb;
 }
 

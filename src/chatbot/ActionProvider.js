@@ -6,41 +6,58 @@ import axios from "axios";
  * @type {"" |"state" | "city" | "pincode" | "location"}
  */
 var userLocationStatus = "";
-var scpa;
+var scpa; // |"state" | "city" | "pincode" | "address"
 var typeOfHelp = null;
 var message = {
   id:101,
   message : "How may I help today? here are a few things i can help you with"
 };
+
 const data = {
-  typeOfHelp: "",
-  state: "",
-  city: "",
-  pincode: "",
-  address: "",
-  latitude: null,
-  longitude: null,
-  isOther: true,
+  Name: "Vinay",
+  PhoneNumber: 9979583723,
+  Age: 21,
+  Address: "",
+  Lat: 0,
+  Lng: 0,
+  UserId: 1,
+  HelpTypeId: 1,
+  // isOther: true,
 };
+
 const chatlog = {
-  userId: 0,
-  chatbotResponse: "",
-  msgText: ""
+  SessionId: 1,
+  BotResponse: "",
+  UserRequest: ""
 }
+
+// const chatlog = {
+//   userId: 0,
+//   chatbotResponse: "",
+//   msgText: ""
+// }
 const chatbotData = axios.create({ baseURL: "http://localhost:3001"});
 
 class ActionProvider {
+  // TODO
+  
+  static user;
+  static setUserId (_user) { ActionProvider.user = _user };
+  static getUserId () { return ActionProvider.user };
+ 
+
+  
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
   }
 
   chatLog = (msgText) => {
-    chatlog.userId = 102;
-    chatlog.msgText = msgText;
-    chatlog.chatbotResponse = message.message;
+    chatlog.SessionId = 1;
+    chatlog.UserRequest = msgText;
+    chatlog.BotResponse = message.message;
     console.log(chatlog);
-    chatbotData.post("/chatbot/chatlog",chatlog).then((res) => {
+    chatbotData.post("/data/chatLog",chatlog).then((res) => {
         // console.log(res);
       });
   };
@@ -78,9 +95,19 @@ class ActionProvider {
   };
 
   needs = (need) => {
-    data.typeOfHelp = need;
     typeOfHelp = need;
     message = this.createChatBotMessage("You need " + need);
+    
+    if(need === "food"){
+      data.HelpTypeId = 1;
+    }else if(need === "clothes"){
+      data.HelpTypeId = 2;
+    }else if(need === "shelter"){
+      data.HelpTypeId = 3;
+    }else if(need === "medical"){
+      data.HelpTypeId = 4;
+    }
+    
     this.addMessageToState(message);
     this.location();
   };
@@ -156,7 +183,7 @@ class ActionProvider {
     else if (userLocationStatus === "address") {
       data.address = scpa;
       userLocationStatus = "";
-      chatbotData.post("/chatbot/distressed", data).then((res) => {
+      chatbotData.post("/data/caseData", data).then((res) => {
         // console.log(res);
       });
 

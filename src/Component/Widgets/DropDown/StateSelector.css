@@ -1,6 +1,6 @@
 .state-selector-container {
   /* background-color: white; */
-  color: #2898ec; ;
+  color: #ed576b; ;
   padding-bottom: 10px;
   border-radius: 15px;
   font-size: 0.9rem;
@@ -14,11 +14,24 @@
 .state-button-confirm {
   display: block;
   margin: 12px auto;
-  background-color: #2898ec;;
+  background-color: #ed576b;;
   padding: 8px;
   border-radius: 5px;
   font-weight: bold;
-  color: white;
+  color: #fff;
   width: 130px;
   border: none;
+}
+
+.state-selector {
+  padding-left: 0 !important;
+  margin: 0 auto;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #ed576b !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ed576b !important;
 }
