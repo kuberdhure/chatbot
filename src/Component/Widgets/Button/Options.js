@@ -36,7 +36,6 @@ const Options = ({ setState, optionSelector, actionProvider }) => {
   };
   
   useEffect(()=>{
-    console.log("WOWOWOWOWOW")
     toggleDisplaySelector((prevState) => !prevState);
     toggleDisplayDisable((prevState) => !prevState);
   }, [optionSelector])

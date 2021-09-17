@@ -1,5 +1,5 @@
 import axios from "axios";
-import { typeOfHelp, chatbotData } from "../chatbot/ActionProvider";
+import {chatbotData, typeOfHelp } from "../chatbot/ActionProvider";
 
 var api;
 
@@ -31,19 +31,14 @@ const getApi = async () => {
   const location = await axios.get(api);
   const locationData = location.data;
   const data = {
-    UserId:1,
-    Name:"Vinay",
-    PhoneNumber:9979583723,
-    Age:21,
-    HelpTypeId: 1,
-    // state: locationData.address.state,
-    // city: locationData.address.city,
-    // pincode: locationData.address.postcode,
+    UserId:window.user.Id,
+    Name:window.user.Name,
+    PhoneNumber:window.user.PhoneNumber,
+    Age:window.user.Age,
+    HelpTypeId: typeOfHelp,
     Address: locationData.display_name,
     Lat:  parseFloat(locationData.lat) ,
-    Lng:  parseFloat(locationData.lon),
-    // isOther: false
-    
+    Lng:  parseFloat(locationData.lon),    
   };
   console.log(data);
   chatbotData.post("/data/caseData",data)

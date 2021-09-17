@@ -5,6 +5,8 @@
   position: static;
 }
 
+
+
 .react-chatbot-kit-chat-bot-avatar-container {
   width: 40px;
   height: 40px;
@@ -28,7 +30,6 @@
 }
 
 .react-chatbot-kit-chat-bot-message {
-  /* background-color: #000000; `*/
   padding: 10px;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -36,7 +37,7 @@
   font-weight: medium;
   position: relative;
   width: 184.5px;
-  margin-left: auto;
+  margin-left: 0;
   text-align: left;
 }
 

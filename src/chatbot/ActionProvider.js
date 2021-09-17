@@ -1,13 +1,15 @@
 import GeoLocation from "../Component/GeoLocation";
 import config from "./config";
 import axios from "axios";
+import { sessionId } from "../App";
+
 
 /**
  * @type {"" |"state" | "city" | "pincode" | "location"}
  */
 var userLocationStatus = "";
 var scpa; // |"state" | "city" | "pincode" | "address"
-var typeOfHelp = null;
+var typeOfHelp = 0;
 var message = {
   id:101,
   message : "How may I help today? here are a few things i can help you with"
@@ -26,7 +28,7 @@ const data = {
 };
 
 const chatlog = {
-  SessionId: 1,
+  SessionId: 0,
   BotResponse: "",
   UserRequest: ""
 }
@@ -39,13 +41,6 @@ const chatlog = {
 const chatbotData = axios.create({ baseURL: "http://localhost:3001"});
 
 class ActionProvider {
-  // TODO
-  
-  static user;
-  static setUserId (_user) { ActionProvider.user = _user };
-  static getUserId () { return ActionProvider.user };
- 
-
   
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
@@ -53,7 +48,7 @@ class ActionProvider {
   }
 
   chatLog = (msgText) => {
-    chatlog.SessionId = 1;
+    chatlog.SessionId = sessionId;
     chatlog.UserRequest = msgText;
     chatlog.BotResponse = message.message;
     console.log(chatlog);
@@ -72,6 +67,7 @@ class ActionProvider {
       "A volunteer will be with you in 15-30 minutes"
     );
     this.addMessageToState(message);
+    console.log(typeOfHelp);
   };
 
   sayTime = () => {
@@ -95,17 +91,17 @@ class ActionProvider {
   };
 
   needs = (need) => {
-    typeOfHelp = need;
+    this.chatLog(need);
     message = this.createChatBotMessage("You need " + need);
     
-    if(need === "food"){
-      data.HelpTypeId = 1;
-    }else if(need === "clothes"){
-      data.HelpTypeId = 2;
-    }else if(need === "shelter"){
-      data.HelpTypeId = 3;
-    }else if(need === "medical"){
-      data.HelpTypeId = 4;
+    if(need === "Food"){
+      typeOfHelp = 1;
+    }else if(need ==="Clothes"){
+      typeOfHelp = 2;
+    }else if(need === "Shelter"){
+      typeOfHelp = 3;
+    }else if(need === "Medical"){
+      typeOfHelp = 4;
     }
     
     this.addMessageToState(message);
