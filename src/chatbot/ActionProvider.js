@@ -67,7 +67,6 @@ class ActionProvider {
       "A volunteer will be with you in 15-30 minutes"
     );
     this.addMessageToState(message);
-    console.log(typeOfHelp);
   };
 
   sayTime = () => {

@@ -1,7 +1,8 @@
 import axios from "axios";
 import {chatbotData, typeOfHelp } from "../chatbot/ActionProvider";
-
+import { sessionId } from "../App";
 var api;
+var caseId 
 
 function getLocation() {
   api = "http://nominatim.openstreetmap.org/reverse?format=json";
@@ -41,7 +42,11 @@ const getApi = async () => {
     Lng:  parseFloat(locationData.lon),    
   };
   console.log(data);
-  chatbotData.post("/data/caseData",data)
+  chatbotData.post("/data/caseData",data).then(res => {
+  caseId = res.data.Id;
+    // console.log(caseId);
+    axios.put(`http://localhost:3001/data/chatSession/${sessionId}`,{CaseId:caseId});
+  })
 };
-
+export { caseId };
 export default getLocation;
