@@ -1,20 +1,9 @@
 .App {
     text-align: center;
-    background-color: rgb(43, 41, 41);
+    background: linear-gradient(to right, #FC466B, #3F5EFB);    
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* .react-chatbot-kit-chat-bot-message {
-    background-color: blueviolet !important;
-}
-.react-chatbot-kit-chat-bot-message-arrow {
-    border-right: 8px solid blueviolet !important;
-}
-.react-chatbot-kit-chat-btn-send {
-    background-color: blueviolet !important;
-}
-.react-chatbot-kit-chat-container {
-    width: 300px !important;
-} */
+

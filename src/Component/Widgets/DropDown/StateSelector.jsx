@@ -3,6 +3,7 @@ import { ConditionallyRender } from "react-util-kit";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import StateNames from "./StateNames";
+import MessageParser from "../../../chatbot/MessageParser";
 import "./StateSelector.css";
 
 const StateSelector = ({ selectedState, setState, actionProvider }) => {
@@ -14,8 +15,9 @@ const StateSelector = ({ selectedState, setState, actionProvider }) => {
 
   const handleConfirm = () => {
     if(!(selectedState.name === "")){
-      actionProvider.locationConfirmation();
       toggleDisplaySelector((prevState) => !prevState);
+      const messPars = new MessageParser(actionProvider);
+      messPars.parse(selectedState.name)
     }
   };
 
@@ -48,6 +50,7 @@ const StateSelector = ({ selectedState, setState, actionProvider }) => {
             {/* <h2 className="state-selector-heading">Select State</h2> */}
             {/* <div className="state-selector"> */}
             <Autocomplete
+              disableClearable
               className="state-selector"
               onChange={(event, value) => handleSubmit(value)}
               style={{

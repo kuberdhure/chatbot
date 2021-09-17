@@ -4,11 +4,12 @@
   padding-bottom: 10px;
   border-radius: 15px;
   font-size: 0.9rem;
+  padding-top: 20px;
 }
 
 .state-selector-heading {
   font-size: 1rem;
-  margin: 0 0 8px 0;
+  margin: 5px 0 8px 0;
 }
 
 .state-button-confirm {

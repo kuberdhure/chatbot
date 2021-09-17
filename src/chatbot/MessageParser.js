@@ -7,6 +7,7 @@ class MessageParser {
   }
 
   parse(message) {
+    if(message !== ""){
     console.log(userLocationStatus);
 
     const lowerMsg = message.toLowerCase();
@@ -36,18 +37,25 @@ class MessageParser {
           } else if (intents[0].name === "thank-you") {
             this.actionProvider.welcome();
           }
-        } else if (
-          userLocationStatus === "state" ||
-          userLocationStatus === "city" ||
-          userLocationStatus === "pincode" ||
-          userLocationStatus === "address"
-        ) {
-          this.actionProvider.locationConfirmation(lowerMsg);
-        } else {
+        } 
+        // else if (
+        //   userLocationStatus === "state" ||
+        //   userLocationStatus === "city" ||
+        //   userLocationStatus === "pincode" ||
+        //   userLocationStatus === "address"
+        // ) {
+        //   this.actionProvider.locationConfirmation(lowerMsg);
+        // } 
+        else {
           this.actionProvider.invalidInput();
         }
       })
       .catch((error) => console.log(error));
+    }
+
+    else{
+      this.actionProvider.invalidInput();
+    }
   }
 }
 

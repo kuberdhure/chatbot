@@ -4,7 +4,9 @@ import Choice from "../Component/Widgets/Button/Choice";
 import Confirmation from "../Component/Widgets/Button/Confirmation";
 import Options from "../Component/Widgets/Button/Options";
 import StateSelector from "../Component/Widgets/DropDown/StateSelector";
-
+import "../Component/CustomComponents/CustomComponents/Header/HeaderText.css"
+// import MenuButton from "../Component/CustomComponents/CustomComponents/Header/HeaderText.css";
+import LandMark from "../Component/Widgets/LandMark/LandMark";
 
 const config = {
   botName: "Andy",
@@ -19,10 +21,15 @@ const config = {
   state: {
     // stateNames: [],
     selectedState: {abbreviation:"", name: ""},
+    otherAddress:{address:"", lat:"", long:""},
     optionSelector: {id: 0, text: ""},
     confirmationSelector: {id: 0, text: ""},
     userSelector: {id: 0, text: ""}
   },
+  customComponents: {
+    // header: MenuButton
+  },
+
   widgets: [
     {
       widgetName: "StateSelector",
@@ -44,6 +51,11 @@ const config = {
       widgetName: "Confirmation",
       widgetFunc: (props) => <Confirmation {...props}/>,
       mapStateToProps: ["messages", "confirmationSelector"],
+    },
+    {
+      widgetName: "LandMark",
+      widgetFunc: (props) => <LandMark {...props} />,
+      mapStateToProps: ["messages", "otherAddress"],
     }
 
   ]

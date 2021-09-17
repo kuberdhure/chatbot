@@ -8,13 +8,13 @@ const Choice = ({ setState, userSelector, actionProvider }) => {
         {
             id: 1,
             text: "Yourself",
-            handler: actionProvider.userLocation,
+            handler: actionProvider.userLocation
             
         },
         {
             id: 2,
             text: "Other",
-            handler: actionProvider.otherState
+            handler: actionProvider.otherAddress
            
         }
     ]

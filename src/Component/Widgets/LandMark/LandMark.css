@@ -1,0 +1,32 @@
+.address-selector-container {
+    background-color: white;
+    color: #2898ec; ;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    padding-top: 20px;
+  }
+
+  .address-button-confirm {
+    display: block;
+    margin: 12px auto;
+    background-color: #2898ec;;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    width: 130px;
+    border: none;
+  }
+
+.address-button-confirm:disabled{
+    display: block;
+    margin: 12px auto;
+    background-color: #bbbbbb;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    width: 130px;
+    border: none;
+}
