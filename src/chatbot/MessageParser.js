@@ -1,4 +1,4 @@
-import { userLocationStatus, chatbotData } from "./ActionProvider";
+import { chatbotData } from "./ActionProvider";
 
 class MessageParser {
   constructor(actionProvider, state) {
@@ -7,8 +7,7 @@ class MessageParser {
   }
 
   parse(message) {
-    console.log(userLocationStatus);
-
+    if(message !== ""){
     const lowerMsg = message.toLowerCase();
     this.actionProvider.chatLog(lowerMsg);
 
@@ -31,8 +30,6 @@ class MessageParser {
         // }else if(predictions[0].entities[0].value == "medical"){
         //   need = 4;
         // }
-
-        if (userLocationStatus === "") {
           if (intents[0].confidence <= 0.02) {
             this.actionProvider.invalidInput();
           } else if (intents[0].name === "hello") {
@@ -48,18 +45,15 @@ class MessageParser {
           } else if (intents[0].name === "thank-you") {
             this.actionProvider.welcome();
           }
-        } else if (
-          userLocationStatus === "state" ||
-          userLocationStatus === "city" ||
-          userLocationStatus === "pincode" ||
-          userLocationStatus === "address"
-        ) {
-          this.actionProvider.locationConfirmation(lowerMsg);
-        } else {
-          this.actionProvider.invalidInput();
-        }
       })
       .catch((error) => console.log(error));
+    }
+
+    else{
+      this.actionProvider.invalidInput();
+    }
+
+   
   }
 }
 

@@ -3,12 +3,6 @@ import config from "./config";
 import axios from "axios";
 import { sessionId } from "../App";
 
-
-/**
- * @type {"" |"state" | "city" | "pincode" | "location"}
- */
-var userLocationStatus = "";
-var scpa; // |"state" | "city" | "pincode" | "address"
 var typeOfHelp = 0;
 var message = {
   id:101,
@@ -33,12 +27,14 @@ const chatlog = {
   UserRequest: ""
 }
 
-// const chatlog = {
-//   userId: 0,
-//   chatbotResponse: "",
-//   msgText: ""
-// }
+var otherAddressData = {
+  address : "",
+  lat: "",
+  long: ""
+}
+
 const chatbotData = axios.create({ baseURL: "http://localhost:3001"});
+
 
 class ActionProvider {
   
@@ -122,89 +118,32 @@ class ActionProvider {
     this.volunteerTime()
   };
 
-  otherState = () => {
-    this.chatLog("other");
-    userLocationStatus = "state";
-    message = this.createChatBotMessage("Enter State Name:  ", {
-      widget: "StateSelector"
-    });
+  otherAddress = () => {
+    message = this.createChatBotMessage("Enter your precise location : ", 
+     {
+       widget:"LandMark"
+     }
+    )
     this.addMessageToState(message);
-    console.log(userLocationStatus);
-  };
-
-  otherCity = () => {
-    message = this.createChatBotMessage("Enter City Name:  ");
-    this.addMessageToState(message);
-    console.log(userLocationStatus);
-  };
-
-  otherPincode = () => {
-    message = this.createChatBotMessage("Enter Pincode:  ");
-    this.addMessageToState(message);
-    console.log(userLocationStatus);
-  };
-
-  locationConfirmation = (lowerMsg) => {
-    message = this.createChatBotMessage(
-      "Did you enter your answer correctly? ",
-      {
-        widget: "Confirmation",
-      }
-    );
-    scpa = lowerMsg;
-    this.addMessageToState(message);
-  };
-
+   }
+  
+  otherAddressConfirmation = () =>{
+    console.log(otherAddressData);
+    message = this.createChatBotMessage("Is this your location:  "+ otherAddressData.address , {
+      widget:"Confirmation"
+    })
+   this.addMessageToState(message)
+  }
+  
   Yes = () => {
     this.chatLog("Yes");
-    if (userLocationStatus === "state") {
-      data.state = scpa;
-      userLocationStatus = "city";
-      this.otherCity();
-    }
-
-    else if (userLocationStatus === "city") {
-      data.city = scpa;
-      userLocationStatus = "pincode";
-      this.otherPincode();
-    }
-
-    else if (userLocationStatus === "pincode") {
-      data.pincode = scpa;
-      userLocationStatus = "address";
-      this.otherLocation();
-    }
-
-    else if (userLocationStatus === "address") {
-      data.address = scpa;
-      userLocationStatus = "";
-      chatbotData.post("/data/caseData", data).then((res) => {
-        // console.log(res);
-      });
-
-      this.volunteerTime();
-    }
+    this.volunteerTime();
+   
   };
 
   No = () => {
     this.chatLog("No");
-    if (userLocationStatus === "state") {
-      this.otherState();
-    } else if (userLocationStatus === "city") {
-      this.otherCity();
-    } else if (userLocationStatus === "pincode") {
-      this.otherPincode();
-    } else if (userLocationStatus === "address") {
-      this.otherLocation();
-    }
-  };
-
-  otherLocation = () => {
-    message = this.createChatBotMessage(
-      "Enter your precise location (this will be sent to the volunteer) "
-    );
-    console.log(userLocationStatus);
-    this.addMessageToState(message);
+    this.otherAddress();
   };
 
   otherPhoneNumber = () => {
@@ -234,5 +173,5 @@ class ActionProvider {
 
 
 
-export { userLocationStatus, typeOfHelp, chatbotData };
+export { typeOfHelp, chatbotData, otherAddressData };
 export default ActionProvider;

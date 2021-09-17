@@ -3,7 +3,7 @@ import React from "react";
 import Choice from "../Component/Widgets/Button/Choice";
 import Confirmation from "../Component/Widgets/Button/Confirmation";
 import Options from "../Component/Widgets/Button/Options";
-import StateSelector from "../Component/Widgets/DropDown/StateSelector";
+import LandMark from "../Component/Widgets/LandMark/LandMark";
 
 
 const config = {
@@ -26,11 +26,6 @@ const config = {
 
   widgets: [
     {
-      widgetName: "StateSelector",
-      widgetFunc: (props) => <StateSelector {...props} />,
-      mapStateToProps: ["messages", "selectedState"],
-    },
-    {
       widgetName: "Options",
       widgetFunc: (props) => <Options {...props} />,
       mapStateToProps: ["messages", "optionSelector"],
@@ -45,6 +40,13 @@ const config = {
       widgetFunc: (props) => <Confirmation {...props} />,
       mapStateToProps: ["messages", "confirmationSelector"],
     },
+
+    {
+      widgetName: "LandMark",
+      widgetFunc: (props) => <LandMark {...props} />,
+      mapStateToProps: ["messages", "otherAddress"],
+    }
+
   ],
 };
 

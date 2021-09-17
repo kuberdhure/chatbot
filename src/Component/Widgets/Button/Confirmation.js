@@ -21,7 +21,7 @@ const Confirmation = ({ setState, confirmationSelector, actionProvider }) => {
 
   const handleSubmit = () => {
    
-    console.log("YEAHHHHHHHH");
+    console.log("Inside handle submit");
       toggleDisplaySelectord((prevState) => !prevState);
       toggleDisplayDisabled((prevState) => !prevState);
   };

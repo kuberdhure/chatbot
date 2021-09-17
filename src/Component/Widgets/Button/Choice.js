@@ -14,8 +14,7 @@ const Choice = ({ setState, userSelector, actionProvider }) => {
         {
             id: 2,
             text: "Other",
-            handler: actionProvider.otherState
-           
+            handler: actionProvider.otherAddress,
         }
     ]
 
