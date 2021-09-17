@@ -11,7 +11,7 @@ const LandMark = ({ otherAddress, setState, actionProvider }) => {
   const addressInputRef = useRef();
   var address;
   var GoogleGeoApi = "https://maps.googleapis.com/maps/api/geocode/json?address="
-  const GoogleApiKey = "&key=AIzaSyDnIDpwWYYJe9piJEdiNF7vqtxcAlq3Otk"
+  const GoogleApiKey = "Enter api key"
   // useEffect(() => {
   //   // console.log(selectedState);
   // }, [selectedState]);
