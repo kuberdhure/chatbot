@@ -126,7 +126,7 @@ class ActionProvider {
   }
   
   Yes = async () => {
-    this.chatLog("Yes");
+    await this.chatLog("Yes");
     // chatbotData.post("/data/caseData",data).then(res => {
     // caseId = res.data.Id;
     // chatbotData.put(`/data/chatSession/${sessionId}`,{CaseId:caseId});
