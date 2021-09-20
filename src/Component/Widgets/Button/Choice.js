@@ -1,9 +1,9 @@
-import React, { /*useEffect,*/ useState } from "react";
+import React, { useState } from "react";
 import { ConditionallyRender } from "react-util-kit";
 import "./Button.css";
 
 
-const Choice = ({ setState, userSelector, actionProvider }) => {
+const Choice = ({actionProvider }) => {
     const Choice = [
         {
             id: 1,
@@ -22,8 +22,6 @@ const Choice = ({ setState, userSelector, actionProvider }) => {
     const [displayDisabled, toggleDisplayDisabled] = useState(true);
 
     const handleSubmit = () => {
-   
-        console.log("Inside yourself or other");
           toggleDisplaySelectord((prevState) => !prevState);
           toggleDisplayDisabled((prevState) => !prevState);
       };

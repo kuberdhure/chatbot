@@ -4,21 +4,18 @@ import { sessionId } from "../App";
 var api;
 var caseId 
 
-function getLocation() {
+async function getLocation() {
   api = "http://nominatim.openstreetmap.org/reverse?format=json";
 
   navigator.geolocation.getCurrentPosition(
-    (position) => {
-      api =
-        api +
-        "&lat=" +
-        position.coords.latitude +
-        "&lon=" +
-        position.coords.longitude;
-      getApi();
+    async (position) => {
+      api = api + "&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+      await getApi();
+      window.location.href = "/home/notification";
     },
-    (err) => {
-      getApi();
+    async (err) => {
+      await getApi();
+      window.location.href = "/home/notification";
     },
     {
       enableHighAccuracy: true,
@@ -41,12 +38,10 @@ const getApi = async () => {
     Lat:  parseFloat(locationData.lat) ,
     Lng:  parseFloat(locationData.lon),    
   };
-  console.log(data);
-  chatbotData.post("/data/caseData",data).then(res => {
+  const res = await chatbotData.post("/data/caseData",data)
   caseId = res.data.Id;
-    // console.log(caseId);
-    axios.put(`http://localhost:3001/data/chatSession/${sessionId}`,{CaseId:caseId});
-  })
+  
+  chatbotData.put(`/data/chatSession/${sessionId}`,{CaseId:caseId});
 };
 export { caseId };
 export default getLocation;

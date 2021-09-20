@@ -19,17 +19,6 @@ class MessageParser {
 
         var entities = predictions[0].entities[0];
 
-        // var need;
-
-        // if(predictions[0].entities[0].value == "food"){
-        //   need = 1;
-        // }else if(predictions[0].entities[0].value == "clothes"){
-        //   need = 2;
-        // }else if(predictions[0].entities[0].value == "shelter"){
-        //   need = 3;
-        // }else if(predictions[0].entities[0].value == "medical"){
-        //   need = 4;
-        // }
           if (intents[0].confidence <= 0.02) {
             this.actionProvider.invalidInput();
           } else if (intents[0].name === "hello") {

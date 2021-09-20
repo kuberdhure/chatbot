@@ -3,7 +3,7 @@ import { ConditionallyRender } from "react-util-kit";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import "./LandMark.css";
-import { otherAddressData } from "../../../chatbot/ActionProvider";
+import { data} from "../../../chatbot/ActionProvider";
 
 const LandMark = ({ otherAddress, setState, actionProvider }) => {
   const [displaySelector, toggleDisplaySelector] = useState(true);
@@ -21,10 +21,14 @@ const LandMark = ({ otherAddress, setState, actionProvider }) => {
       address = (addressInputRef.current.value).replaceAll(" ", "+");
       console.log(address);
       GoogleGeoApi = GoogleGeoApi + address
-      const location = await axios.get(GoogleGeoApi+GoogleApiKey);
-      otherAddressData.address = (location.data.results[0].formatted_address);
-      otherAddressData.lat =(location.data.results[0].geometry.location.lat);
-      otherAddressData.long = (location.data.results[0].geometry.location.lng);
+      try{
+        const location = await axios.get(GoogleGeoApi+GoogleApiKey);
+        data.Address = (location.data.results[0].formatted_address);
+        data.Lat =(location.data.results[0].geometry.location.lat);
+        data.Lng = (location.data.results[0].geometry.location.lng);
+      }catch(error){
+      }
+      
       actionProvider.otherAddressConfirmation();
     }
   };

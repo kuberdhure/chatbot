@@ -10,7 +10,7 @@ const Options = ({ setState, optionSelector, actionProvider }) => {
     },
     {
       id: 2,
-      text: "Clothes",
+      text: "Clothing",
     },
     {
       id: 3,
