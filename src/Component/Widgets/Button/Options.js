@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ConditionallyRender } from "react-util-kit";
+import { logUserChat } from "../../../utils/chatlog";
 import "./Button.css";
 
 const Options = ({ setState, optionSelector, actionProvider }) => {
@@ -25,12 +26,13 @@ const Options = ({ setState, optionSelector, actionProvider }) => {
   const [displaySelector, toggleDisplaySelector] = useState(true);
   const [displayDisable, toggleDisplayDisable] = useState(true);
 
-  const handleSubmit = (value) => {
+  const handleSubmit = async  (value) => {
     if (optionSelector.text === "") {
       setState((state) => ({
         ...state,
         optionSelector: value,
       }));
+      await logUserChat(value.text);
       actionProvider.needs(value.text);
     }
   };

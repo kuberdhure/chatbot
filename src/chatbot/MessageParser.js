@@ -1,3 +1,4 @@
+import { logUserChat } from "../utils/chatlog";
 import { chatbotData } from "./ActionProvider";
 
 class MessageParser {
@@ -7,10 +8,11 @@ class MessageParser {
   }
 
   parse(message) {
+    logUserChat(message);
     if(message !== ""){
     const lowerMsg = message.toLowerCase();
     this.actionProvider.chatLog(lowerMsg);
-
+ 
     chatbotData.post("/data/nlu", {"utterances": [lowerMsg]})
       .then((res) => {
         const predictions = res.data["predictions"];
@@ -34,6 +36,7 @@ class MessageParser {
           } else if (intents[0].name === "thank-you") {
             this.actionProvider.welcome();
           }
+          console.log(this.state.messages);
       })
       .catch((error) => console.log(error));
     }
@@ -41,7 +44,6 @@ class MessageParser {
     else{
       this.actionProvider.invalidInput();
     }
-
    
   }
 }

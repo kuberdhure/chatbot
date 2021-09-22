@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import "./LandMark.css";
 import { data} from "../../../chatbot/ActionProvider";
+import { logUserChat } from "../../../utils/chatlog";
 
 const LandMark = ({ otherAddress, setState, actionProvider }) => {
   const [displaySelector, toggleDisplaySelector] = useState(true);
@@ -29,6 +30,8 @@ const LandMark = ({ otherAddress, setState, actionProvider }) => {
       }catch(error){
       }
       
+      logUserChat(address);
+
       actionProvider.otherAddressConfirmation();
     }
   };

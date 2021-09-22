@@ -34,7 +34,8 @@
   padding: 0 17.5px 10px 17.5px;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 424px;
+  height: 70vh;
+  padding-bottom: 3em;
 }
 .react-chatbot-kit-chat-message-container::-webkit-scrollbar {
   width: 3px;

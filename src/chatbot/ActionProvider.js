@@ -2,19 +2,24 @@ import GeoLocation from "../Component/GeoLocation";
 import config from "./config";
 import axios from "axios";
 import { sessionId } from "../App";
+import { logBotChat } from "../utils/chatlog";
 
 var caseId; 
 var typeOfHelp;
 var message = {
-  message : "How may I help today? here are a few things i can help you with"
+  message : ""
 };
 
 
+const userData= {
+  UserId: window.user ? window.user.Id : 1,
+  Name: window.user ? window.user.Name : "ABC",
+  PhoneNumber: window.user ? window.user.PhoneNumber : 9999999999,
+  Age: window.user ? window.user.Age : 22,
+}
+
 const data = {
-  UserId: window.user.Id,
-  Name: window.user.Name,
-  PhoneNumber: window.user.PhoneNumber,
-  Age: window.user.Age,
+  ...userData,
   HelpTypeId: 0,
   Address: "",
   Lat: 0,
@@ -37,19 +42,31 @@ class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
+
+    const oldAddMessageToState = this.addMessageToState;
+    this.addMessageToState = (chatBotMessageObject) => {
+      logBotChat(chatBotMessageObject.message);
+      return oldAddMessageToState(chatBotMessageObject);
+    };
   }
 
   chatLog = async (msgText) => {
-    chatlog.SessionId = sessionId;
-    chatlog.UserRequest = msgText;
-    chatlog.BotResponse = message.message;
-    console.log(chatlog);
-    const res = await chatbotData.post("/data/chatLog",chatlog);
-    return res;
+    // chatlog.SessionId = sessionId;
+    // chatlog.UserRequest = msgText;
+    // chatlog.BotResponse = message.message;
+    // console.log(chatlog);
+    // const res = await chatbotData.post("/data/chatLog",chatlog);
+    // return res;
   };
 
 
   initialMessage = () => {
+    // message = this.createChatBotMessage(
+    //   config.initialMessages[1].message,
+    //   {
+    //     widget: "Options",
+    //   }
+    // )
     this.addMessageToState(config.initialMessages[1]);
   };
 
@@ -109,7 +126,17 @@ class ActionProvider {
     GeoLocation();
   };
 
-  otherAddress = () => {
+  otherAddress = async () => {
+    await this.chatLog("Other");
+    message = this.createChatBotMessage("Enter distressed's location: ", 
+     {
+       widget:"LandMark"
+     }
+    )
+    this.addMessageToState(message);  }
+
+  otherAddressRetry = async () => {
+    await this.chatLog("Other");
     message = this.createChatBotMessage("Try entering your complete address with pincode and nearest landmark: ", 
      {
        widget:"LandMark"
@@ -127,10 +154,6 @@ class ActionProvider {
   
   Yes = async () => {
     await this.chatLog("Yes");
-    // chatbotData.post("/data/caseData",data).then(res => {
-    // caseId = res.data.Id;
-    // chatbotData.put(`/data/chatSession/${sessionId}`,{CaseId:caseId});
-    // })
 
     const res = await chatbotData.post("/data/caseData",data)
     caseId = res.data.Id;
@@ -141,14 +164,8 @@ class ActionProvider {
 
   No = () => {
     this.chatLog("No");
-    this.otherAddress();
+    this.otherAddressRetry();
   };
-
-  otherPhoneNumber = () => {
-    message = this.createChatBotMessage("Pls enter your phone number");
-    this.addMessageToState(message);
-  };
-
 
   invalidInput = () => {
     message = this.createChatBotMessage(
@@ -171,5 +188,5 @@ class ActionProvider {
 
 
 
-export { typeOfHelp, chatbotData, data };
+export { typeOfHelp, chatbotData, data, userData };
 export default ActionProvider;

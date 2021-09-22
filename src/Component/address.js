@@ -1,5 +1,5 @@
 import axios from "axios";
-import {chatbotData, typeOfHelp } from "../chatbot/ActionProvider";
+import {chatbotData, typeOfHelp, userData } from "../chatbot/ActionProvider";
 import { sessionId } from "../App";
 var api;
 var caseId 
@@ -29,10 +29,7 @@ const getApi = async () => {
   const location = await axios.get(api);
   const locationData = location.data;
   const data = {
-    UserId:window.user.Id,
-    Name:window.user.Name,
-    PhoneNumber:window.user.PhoneNumber,
-    Age:window.user.Age,
+    ...userData,
     HelpTypeId: typeOfHelp,
     Address: locationData.display_name,
     Lat:  parseFloat(locationData.lat) ,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ConditionallyRender } from "react-util-kit";
+import { logUserChat } from "../../../utils/chatlog";
 import "./Button.css";
 
 
@@ -30,9 +31,10 @@ const Choice = ({actionProvider }) => {
         <button
           disabled={!displayDisabled}
           key={item.id}
-          onClick= { () => {
+          onClick= {async () => {
             handleSubmit()
-            item.handler()
+            await logUserChat(item.text);
+            item.handler();
         }
          }
           className="option-button"

@@ -1,5 +1,6 @@
 import React, { /*useEffect,*/ useState } from "react";
 import { ConditionallyRender } from "react-util-kit";
+import { logUserChat } from "../../../utils/chatlog";
 import "./Button.css";
 
 const Confirmation = ({ setState, confirmationSelector, actionProvider }) => {
@@ -33,8 +34,9 @@ const Confirmation = ({ setState, confirmationSelector, actionProvider }) => {
     <button
       disabled={!displayDisabled}
       key={item.id}
-      onClick= { () => {
+      onClick= {async () => {
         handleSubmit()
+        await logUserChat(item.text);
         item.handler()
     }
      }
