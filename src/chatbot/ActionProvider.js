@@ -10,7 +10,6 @@ var message = {
   message : ""
 };
 
-
 const userData= {
   UserId: window.user ? window.user.Id : 1,
   Name: window.user ? window.user.Name : "ABC",
@@ -34,7 +33,7 @@ const chatlog = {
 }
 
 
-const chatbotData = axios.create({ baseURL: "http://localhost:3001"});
+const chatbotData = axios.create({ baseURL: "http://65.2.142.67:3001/"});
 
 
 class ActionProvider {

@@ -25,7 +25,10 @@ const GeoLocation = async () => {
         } else if (result.state === "denied") {
             alert("Allow location access")
             //If denied then you have to show instructions to enable location
+        } else {
+            alert("DANGER :-(");
         }
+
         result.onchange = function () {
             console.log(result.state);
         };

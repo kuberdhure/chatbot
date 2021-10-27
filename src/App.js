@@ -16,13 +16,15 @@ function App() {
   const [isSessionIdGenerated, setIsSessionIdGenerated] = useState(false);
 
   useEffect(async () => {
-    const res = await chatbotData.post(`/data/chatSession`,{UserId: userData.UserId})
-    sessionId = res.data.Id;
-    for(const {message} of config.initialMessages) {
-      await logBotChat(message);
+    if(!isSessionIdGenerated) {
+      const res = await chatbotData.post(`/data/chatSession`,{UserId: userData.UserId})
+      sessionId = res.data.Id;
+      for(const {message} of config.initialMessages) {
+        await logBotChat(message);
+      }
+      setIsSessionIdGenerated(true);
     }
-    setIsSessionIdGenerated(true);
-  });
+  }, []);
 
   return (
      
