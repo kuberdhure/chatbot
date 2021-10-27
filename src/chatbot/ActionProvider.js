@@ -122,7 +122,22 @@ class ActionProvider {
   
   userLocation = async () => {
     await this.chatLog("Yourself");
-    GeoLocation();
+    
+    // GeoLocation();
+
+    const data = {
+      ...userData,
+      HelpTypeId: typeOfHelp,
+      Address: window.user.Address,
+      Lat:  window.user.Lat,
+      Lng:  window.user.Lng,    
+    };
+    const res = await chatbotData.post("/data/caseData",data);
+    caseId = res.data.Id;
+    
+    await chatbotData.put(`/data/chatSession/${sessionId}`,{CaseId:caseId});
+
+    window.location.href = "/home/notification";
   };
 
   otherAddress = async () => {
