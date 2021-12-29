@@ -33,7 +33,7 @@ const chatlog = {
 }
 
 
-const chatbotData = axios.create({ baseURL: "http://35.154.87.215:3001/"});
+const chatbotData = axios.create({ baseURL: "http://3.6.32.110:3001/"});
 
 
 class ActionProvider {
